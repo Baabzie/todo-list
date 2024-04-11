@@ -12,6 +12,7 @@ type AddTodoPopupProps = {
 
 const AddTodoPopup: React.FC<AddTodoPopupProps> = ({ onClose, addTodo }) => {
   const [inputValue, setInputValue] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,6 +31,12 @@ const AddTodoPopup: React.FC<AddTodoPopupProps> = ({ onClose, addTodo }) => {
     };
   }, [onClose]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -41,11 +48,23 @@ const AddTodoPopup: React.FC<AddTodoPopupProps> = ({ onClose, addTodo }) => {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleAddBtn();
+    }
+  };
+
   return (
     <div className="popup-container">
       <div className="popup" ref={popupRef}>
         <h3>Add New Todo</h3>
-        <input type="text" value={inputValue} onChange={handleInputChange} />
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
+          ref={inputRef}
+        />
         <div className="btn-div">
           <button className="add-btn" onClick={handleAddBtn}>
             <Add className="icon" />
