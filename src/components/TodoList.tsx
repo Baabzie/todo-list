@@ -56,7 +56,7 @@ const TodoList = () => {
       <div className="lists-container">
         <div className="list-header-container">
           <h2>Todos:</h2>
-          <button className="add-btn" onClick={togglePopup}>
+          <button className="add-new-btn" onClick={togglePopup}>
             <Add className="icon" />
           </button>
         </div>
