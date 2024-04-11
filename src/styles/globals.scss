@@ -32,9 +32,11 @@ button {
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   .popup {
     background-color: white;
+    height: 135px;
+    margin-top: 100px;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
