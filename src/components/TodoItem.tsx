@@ -18,7 +18,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
 }) => {
   return (
     <li className="list-item">
-      <p>{todo.text}</p>
       <div className="btn-div">
         {!todo.done ? (
           <button className="done-btn" onClick={() => switchDone(index)}>
@@ -33,6 +32,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           <Close className="icon" />
         </button>
       </div>
+      <p>{todo.text}</p>
     </li>
   );
 };
