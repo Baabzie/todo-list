@@ -3,6 +3,14 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
+  background-color: #fbfbfb;
+}
+
+p,
+h1,
+h2,
+h3 {
+  color: rgb(66, 65, 65);
 }
 
 header {
@@ -21,6 +29,7 @@ button {
   padding: 4px 6px;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   // @media (max-width: 600px) {
   //   padding: 6px 8px;
   // }
@@ -37,12 +46,12 @@ button {
   justify-content: center;
   // align-items: center;
   .popup {
-    background-color: white;
+    background-color: #ffffff;
     height: 135px;
     margin-top: 100px;
     padding: 20px;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     h3 {
       text-align: center;
     }
@@ -51,6 +60,7 @@ button {
       border-radius: 4px;
       height: 25px;
       margin-bottom: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -76,6 +86,7 @@ button {
 }
 
 .list-item {
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   // justify-content: space-between;
@@ -84,6 +95,7 @@ button {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   p {
     margin: 0;
   }
@@ -99,7 +111,6 @@ button {
   background-color: #4caf50;
   color: white;
   @media (max-width: 600px) and (max-height: 900px) {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     padding: 8px 10px;
     position: fixed;
     top: 90%;
