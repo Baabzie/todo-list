@@ -12,16 +12,18 @@ const TodoList = () => {
   const [firstRender, setFirstRender] = useState<boolean>(true); // To prevent the first render of the site to overwrite the local storage with an empty array.
 
   useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
+    let storedTodos = localStorage.getItem("todos");
     if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
+      let todosArray: todoI[] = JSON.parse(storedTodos);
+      setTodos(todosArray);
     }
   }, []);
 
   useEffect(() => {
     // If "firstRender" is true we wont change local storage...
     if (!firstRender) {
-      localStorage.setItem("todos", JSON.stringify(todos));
+      let todosArray = [...todos];
+      localStorage.setItem("todos", JSON.stringify(todosArray));
       return;
     }
     // ...and then we set "firstRender" to false so we after the initial render actually change the local storage.
@@ -35,6 +37,7 @@ const TodoList = () => {
   const addTodo = (newTodo: todoI) => {
     const newTodos = [...todos];
     newTodos.push(newTodo);
+    newTodos.sort((a, b) => a.text.localeCompare(b.text));
     setTodos(newTodos);
   };
 
