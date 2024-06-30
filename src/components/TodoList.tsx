@@ -10,6 +10,7 @@ const TodoList = () => {
   const [todos, setTodos] = useState<todoI[]>([]);
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [firstRender, setFirstRender] = useState<boolean>(true); // To prevent the first render of the site to overwrite the local storage with an empty array.
+  const [sortOption, setSortOption] = useState<string>("date");
 
   useEffect(() => {
     let storedTodos = localStorage.getItem("todos");
@@ -35,16 +36,19 @@ const TodoList = () => {
   };
 
   const addTodo = (newTodo: todoI) => {
+    newTodo.date = new Date().toISOString();
     const newTodos = [...todos];
     newTodos.push(newTodo);
-    newTodos.sort((a, b) => a.text.localeCompare(b.text));
-    setTodos(newTodos);
+    // newTodos.sort((a, b) => a.text.localeCompare(b.text));
+    setTodos(sortingFunction(sortOption, newTodos));
+    // setTodos(newTodos);
   };
 
   const switchDone = (index: number) => {
     let newTodos = [...todos];
+    newTodos[index].date = new Date().toISOString();
     newTodos[index].done = !newTodos[index].done;
-    setTodos(newTodos);
+    setTodos(sortingFunction(sortOption, newTodos));
   };
 
   const removeListItem = (index: number) => {
@@ -53,12 +57,38 @@ const TodoList = () => {
     setTodos(newTodos);
   };
 
+  const sortingFunction = (option: string, todosArray: todoI[]) => {
+    const sortedTodos = [...todosArray].sort((a, b) => {
+      if (option === "date") {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return b.date.localeCompare(a.date); // Change this line for descending order
+      } else if (option === "alphabetical") {
+        return a.text.localeCompare(b.text);
+      }
+      return 0;
+    });
+    return sortedTodos;
+  };
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOption = event.target.value;
+    setSortOption(selectedOption);
+
+    setTodos(sortingFunction(selectedOption, todos));
+    // sortingFunction(selectedOption, todos);
+  };
+
   return (
     <>
       {showPopup && <AddTodoPopup onClose={togglePopup} addTodo={addTodo} />}
       <div className="lists-container">
         <div className="list-header-container">
           <h2>Todos:</h2>
+          <select value={sortOption} onChange={handleSortChange}>
+            <option value="date">Last changed</option>
+            <option value="alphabetical">Alphabetical</option>
+          </select>
           <button className="add-new-btn" onClick={togglePopup}>
             <Add className="icon" />
           </button>
