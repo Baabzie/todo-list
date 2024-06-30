@@ -39,9 +39,7 @@ const TodoList = () => {
     newTodo.date = new Date().toISOString();
     const newTodos = [...todos];
     newTodos.push(newTodo);
-    // newTodos.sort((a, b) => a.text.localeCompare(b.text));
     setTodos(sortingFunction(sortOption, newTodos));
-    // setTodos(newTodos);
   };
 
   const switchDone = (index: number) => {
@@ -76,7 +74,6 @@ const TodoList = () => {
     setSortOption(selectedOption);
 
     setTodos(sortingFunction(selectedOption, todos));
-    // sortingFunction(selectedOption, todos);
   };
 
   return (
@@ -85,7 +82,11 @@ const TodoList = () => {
       <div className="lists-container">
         <div className="list-header-container">
           <h2>Todos:</h2>
-          <select value={sortOption} onChange={handleSortChange}>
+          <select
+            className="sorting-select"
+            value={sortOption}
+            onChange={handleSortChange}
+          >
             <option value="date">Last changed</option>
             <option value="alphabetical">Alphabetical</option>
           </select>
